@@ -3,6 +3,8 @@
 use App\Models\Models\Colours\Colors;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,17 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main');
+Route::group(['prefix' => '/'], function () {
+  Route::get('/', function () {
+    return view('public.pages.main');});
 });
+
+
 Route::get('/about', function () {
-    return view('about');
+    return view('public/pages/about');
 });
 Route::get('/contacts', function () {
-    return view('contacts');
+    return view('public/pages/contacts');
 });
 Route::get('/delivery', function () {
-    return view('delivery');
+    return view('public/pages/delivery');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/',    [\App\Http\Controllers\AdminController::class, 'IndexPage'])->name('index-page');
 });
 
 Route::get('/admin/products/product/add', [\App\Http\Controllers\Admin\Products\Products::class,'add_product']);
@@ -64,10 +73,6 @@ Route::post('/admin/action/edit_color', function () {
 Route::get('/admin/products/product/edit_color', function () {
     $objParam = new App\Models\Models\Models\Parameters\Parameters();
     $dataParam = $objParam->all();
-
-
-
-
 
     return view('admin.products.edit_color', compact('$dataParam',$$dataParam));
 });
