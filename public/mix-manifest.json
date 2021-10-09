@@ -1,8 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
-    "/admin/js/app-admin.js": "/admin/js/app-admin.js",
-    "/js/app-public.js": "/js/app-public.js",
+    "/js/admin/app-admin.js": "/js/admin/app-admin.js",
+    "/js/public/app-public.js": "/js/public/app-public.js",
     "/css/app.css": "/css/app.css",
-    "/css/app-public.css": "/css/app-public.css",
-    "/admin/css/app-admin.css": "/admin/css/app-admin.css"
+    "/css/public/app-public.css": "/css/public/app-public.css",
+    "/css/admin/app-admin.css": "/css/admin/app-admin.css"
 }
