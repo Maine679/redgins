@@ -19,7 +19,7 @@ class CreateParametersTable extends Migration
             $table->integer('parent');
             $table->timestamps();
         });
-        }
+      }
 
     /**
      * Reverse the migrations.

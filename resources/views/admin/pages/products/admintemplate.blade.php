@@ -55,7 +55,7 @@
                             Параметры
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Изменить</a></li>
+                            <li><a class="dropdown-item" href="/admin/products/product/edit_param">Изменить</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Удалить</a></li>
                         </ul>

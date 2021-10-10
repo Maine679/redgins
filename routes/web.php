@@ -41,13 +41,14 @@ Route::group(['prefix' => 'admin-panel'], function () {
 });
 
 Route::get('/admin/products/product/add', [\App\Http\Controllers\Admin\Products\Products::class,'add_product']);
+
+//работа с цветами
 Route::get('/admin/products/product/edit_color', function () {
-    $objColor = new App\Models\Models\Colours\Colors();
-    $dataColor = $objColor->all();
+  $objColor = new App\Models\Models\Colours\Colors();
+  $dataColor = $objColor->all();
 
-    return view('admin.pages.products.edit_color', compact('dataColor',$dataColor));
+  return view('admin.pages.products.edit_color', compact('dataColor',$dataColor));
 });
-
 Route::post('/admin/action/edit_color', function () {
 
     $select = $_POST['select_color'];
@@ -73,12 +74,12 @@ Route::post('/admin/action/edit_color', function () {
     return Redirect::to('/admin/products/product/edit_color');
 });
 
-
-Route::get('/admin/products/product/edit_color', function () {
+//Работа с параметрами (дополнительные характеристики объектов, можно добавлять)
+Route::get('/admin/products/product/edit_param', function () {
     $objParam = new App\Models\Models\Models\Parameters\Parameters();
     $dataParam = $objParam->all();
 
-    return view('admin.pages.products.edit_color', compact('$dataParam',$$dataParam));
+    return view('admin.pages.products.edit_parameter', compact('dataParam',$dataParam));
 });
 
 Route::post('/admin/action/edin_parameter',function() {
