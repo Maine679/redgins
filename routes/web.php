@@ -45,7 +45,7 @@ Route::get('/admin/products/product/edit_color', function () {
     $objColor = new App\Models\Models\Colours\Colors();
     $dataColor = $objColor->all();
 
-    return view('admin.products.edit_color', compact('dataColor',$dataColor));
+    return view('admin.pages.products.edit_color', compact('dataColor',$dataColor));
 });
 
 Route::post('/admin/action/edit_color', function () {
@@ -78,11 +78,11 @@ Route::get('/admin/products/product/edit_color', function () {
     $objParam = new App\Models\Models\Models\Parameters\Parameters();
     $dataParam = $objParam->all();
 
-    return view('admin.products.edit_color', compact('$dataParam',$$dataParam));
+    return view('admin.pages.products.edit_color', compact('$dataParam',$$dataParam));
 });
 
 Route::post('/admin/action/edin_parameter',function() {
-    dd('epit_parameter');
+    dd('edit_parameter');
 });
 
 

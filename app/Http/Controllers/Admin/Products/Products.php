@@ -35,7 +35,7 @@ class Products extends Controller
 
 //        return "Запись добавлена.";
 
-        return view('admin.products.add',compact('product'));
+        return view('admin.pages.products.add',compact('product'));
 
     }
 
@@ -43,6 +43,6 @@ class Products extends Controller
 
         $product = $this->productService->getById($id);
 
-        return view('admin.products.get',compact('product'));
+        return view('admin.pages.products.get',compact('product'));
     }
 }
