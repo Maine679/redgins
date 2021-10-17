@@ -16,23 +16,20 @@
         </div>
         <div class="col-xs-10 col-sm-7 col-md-8 col-lg-8 col-xs-9">
             <div class="mb-3">
-                <select onfocus='this.size=5;'     onblur='this.size=1;'
-                        onchange='this.size=1; this.blur();' class="form-select" aria-label="Default select example">
+                <select id="selectColorName" onfocus='this.size=5;'     onblur='this.size=1;'
+                        onchange='this.size=1; this.blur(); changeColor(); changeNameColor();' class="form-select" aria-label="Default select example">
                     <option selected>Не выбран</option>
-                    <option value="1">Красный</option>
-                    <option value="2">Черный</option>
-                    <option value="3">Салатовый</option>
-                    <option value="4">Малиновый</option>
-                    <option value="5">Розовый</option>
-                    <option value="6">Бежевый</option>
-                    <option value="7">Белый</option>
-                    <option value="8">Серый</option>
-                    <option value="9">Графитовый</option>
+                    {{$i=0}}
+                    @foreach($dataColor as $item)
+                      <option value="{{$i++}}">{{$item->getAttributeValue('name')}}</option>
+
+                    @endforeach
+
                 </select>
             </div>
         </div>
         <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 col-xs-1">
-            <input type="color" value="#ff00ff" disabled>
+            <input id="ColorChange" type="color" value="#000000" disabled>
         </div>
     </div>
 
@@ -71,7 +68,7 @@
             <label class="form-label">Цена:</label>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xs-3">
-            <input type="" class="form-control" id="InputName" aria-describedby="nameHelp">
+            <input onchange='changePrice();' type="" class="form-control" id="InputPrice" aria-describedby="nameHelp">
         </div>
         <div class="col-xs-6 col-sm-2 col-md-1 col-lg-1 col-xl-1">
             <label class="form-label">Скидка:</label>
@@ -79,38 +76,41 @@
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xs-3">
             <div class="mb-3">
                 <select onfocus='this.size=5;'     onblur='this.size=1;'
-                        onchange='this.size=1; this.blur();' class="form-select" aria-label="Default select example">
-                    <option selected>Без скидки</option>
-                    <option value="0">3</option>
-                    <option value="1">5</option>
-                    <option value="2">7</option>
-                    <option value="3">10</option>
-                    <option value="4">12</option>
-                    <option value="5">15</option>
-                    <option value="6">17</option>
-                    <option value="7">20</option>
-                    <option value="8">23</option>
-                    <option value="9">25</option>
-                    <option value="10">28</option>
-                    <option value="11">30</option>
-                    <option value="12">35</option>
-                    <option value="13">40</option>
-                    <option value="14">45</option>
-                    <option value="15">50</option>
-                    <option value="16">55</option>
-                    <option value="17">60</option>
-                    <option value="18">65</option>
-                    <option value="19">70</option>
-                    <option value="20">75</option>
-                    <option value="21">80</option>
-                    <option value="22">85</option>
-                    <option value="23">90</option>
+                        onchange='this.size=1; this.blur(); changePrice();' id="percentSale" class="form-select" aria-label="Default select example">
+                    <option value="0" selected>0</option>
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="15">15</option>
+                    <option value="17">17</option>
+                    <option value="20">20</option>
+                    <option value="23">23</option>
+                    <option value="25">25</option>
+                    <option value="28">28</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
+                    <option value="55">55</option>
+                    <option value="60">60</option>
+                    <option value="65">65</option>
+                    <option value="70">70</option>
+                    <option value="75">75</option>
+                    <option value="80">80</option>
+                    <option value="85">85</option>
+                    <option value="90">90</option>
 
                 </select>
             </div>
         </div>
+        <div class="col-xs-6 col-sm-2 col-md-1 col-lg-1 col-xl-1">
+          <label class="form-label">Итог:</label>
+        </div>
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-            <label class="form-label">Итого: 999</label>
+            <input disabled class="form-control" id="resultPrice" aria-describedby="nameHelp">
         </div>
     </div>
 
@@ -146,6 +146,37 @@
     </div>
 
 
+  <script>
+    function changeColor() {
+      var data = @json($dataColor);
+      var dop = document.getElementById("selectColorName").value;
+
+      if (dop >= 0) {
+
+        document.getElementById("ColorChange").value = data[dop].color;
+      } else
+        document.getElementById("ColorChange").value = '#000000';
+    }
+
+    function changePrice() {
+
+      var price = document.getElementById("InputPrice").value;
+      var percentSale = document.getElementById("percentSale").value;
+
+      console.log(' price ', price, ' percent ', percentSale);
+
+      var newPrice = price;
+
+      if(percentSale > 0) {
+        newPrice = price - price*percentSale/100;
+      }
+
+      console.log('new price ', newPrice);
+      document.getElementById("resultPrice").value = newPrice;
+    }
+
+
+  </script>
 
 
 

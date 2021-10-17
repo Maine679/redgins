@@ -41,8 +41,7 @@
         <div class="mb-3">
             <label for="InputName" class="form-label">Тип данных:</label>
             <div class="mb-3">
-                <select id="selectParameterName" onblur='this.size=1;' onfocus='this.size=getSizeSelect();'
-                        onchange='this.size=1' name="select_type_parameter" class="form-select" aria-label="">
+                <select id="selectParameterNameType" name="select_type_parameter" class="form-select" aria-label="">
                     <option value="0" selected>Строка</option>
                     <option value="1">Число</option>
                 </select>
@@ -76,10 +75,14 @@
             if(dop < 0) {
                 document.getElementById("buttonSend").textContent = 'Добавить';
                 document.getElementById("InputNameParameter").placeholder = 'Укажите название';
+                document.getElementById("productId").value = -1;
+                document.getElementById("selectParameterName").value = '-1';
+                document.getElementById("InputNameParameter").value = '';
             } else {
                 document.getElementById("InputNameParameter").value = data[dop].name;
                 document.getElementById("buttonSend").textContent = 'Изменить';
                 document.getElementById("productId").value = data[dop].id;
+                document.getElementById("selectParameterNameType").value = data[dop].type;
             }
         }
 

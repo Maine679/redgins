@@ -75,15 +75,44 @@ Route::post('/admin/action/edit_color', function () {
 });
 
 //Работа с параметрами (дополнительные характеристики объектов, можно добавлять)
-Route::get('/admin/products/product/edit_param', function () {
+Route::get('/admin/products/product/edit_parameter', function () {
     $objParam = new App\Models\Models\Models\Parameters\Parameters();
     $dataParam = $objParam->all();
 
     return view('admin.pages.products.edit_parameter', compact('dataParam',$dataParam));
 });
 
-Route::post('/admin/action/edin_parameter',function() {
-    dd('edit_parameter');
+Route::post('/admin/action/edit_parameter',function() {
+//    dd('edit_parameter');
+
+
+  $select = $_POST['select_parameter'];
+  $parameterName = $_POST['parameterName'];
+  $productId = $_POST['productId'];
+  $paramType = $_POST['select_type_parameter'];
+
+
+  $objParam = new App\Models\Models\Models\Parameters\Parameters();
+
+  if($select == -1) { //Добавляем новый цвет.
+
+    $objParam->name = $parameterName;
+    $objParam->type = $paramType;
+    $objParam->save();
+
+  } else { //Редактируем существующий цвет. Крутотенюшка!
+    $param = $objParam->where('id',$productId)->first();
+
+    $param->name = $parameterName;
+    $param->type = $paramType;
+    $param->save();
+  }
+//  dd('test');
+
+  return Redirect::to('/admin/products/product/edit_parameter');
+
+
+
 });
 
 

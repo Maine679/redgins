@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin\Products;
 
 use App\Http\Controllers\Admin\Products\Service\ProductService;
 use App\Http\Controllers\Controller;
+use App\Models\Models\Models\Parameters\Parameters;
 use Illuminate\Http\Request;
+use App\Models\Models\Colours\Colors;
 
 class Products extends Controller
 {
@@ -33,15 +35,20 @@ class Products extends Controller
 //        $product->save();
         $product = new \App\Models\Models\Products\Products();
 
-//        return "Запись добавлена.";
+        $objParam = new Parameters();
+        $dataParam = $objParam->all();
 
-        return view('admin.pages.products.add',compact('product'));
+        $objColor = new Colors();
+        $dataColor = $objColor->all();
+
+        return view('admin.pages.products.add',compact('product',$product,'dataParam',$dataParam,'dataColor',$dataColor));
 
     }
 
     public function get_product($id) {
 
         $product = $this->productService->getById($id);
+
 
         return view('admin.pages.products.get',compact('product'));
     }
