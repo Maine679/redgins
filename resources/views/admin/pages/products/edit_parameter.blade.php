@@ -49,7 +49,8 @@
            <div id="nameHelp" class="form-text">Тип данных которые будут указаны в этом параметре</div>
         </div>
 
-        <button type="submit" id="buttonSend" class="btn btn-primary">Добавить</button>
+        <button type="submit" name="action" value="1" id="buttonSend" class="btn btn-primary">Добавить</button>
+        <button type="submit" name="action" id="buttonSendDelete" value="-1" onclick="return confirm('Вы точно хотите удалить? Может привести к непредвиденным последствиям!');" style="visibility: hidden;" class="btn btn-primary">Удалить</button>
     </form>
 
 
@@ -78,11 +79,14 @@
                 document.getElementById("productId").value = -1;
                 document.getElementById("selectParameterName").value = '-1';
                 document.getElementById("InputNameParameter").value = '';
+                document.getElementById('buttonSendDelete').style = 'visibility:hidden';
+
             } else {
                 document.getElementById("InputNameParameter").value = data[dop].name;
                 document.getElementById("buttonSend").textContent = 'Изменить';
                 document.getElementById("productId").value = data[dop].id;
                 document.getElementById("selectParameterNameType").value = data[dop].type;
+                document.getElementById('buttonSendDelete').style = 'visibility:visible';
             }
         }
 

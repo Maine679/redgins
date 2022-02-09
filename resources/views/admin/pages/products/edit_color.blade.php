@@ -4,20 +4,20 @@
 
 
 
-    <form action="/admin/action/edit_color" method="POST">
+    <form action="/admin/action/edit_parameter" method="POST">
         {{ csrf_field() }}
 
 
 
 
         <div class="mb-3">
-            <label for="InputName" class="form-label">Выберите цвет для изменения:</label>
+            <label for="InputName" class="form-label">Выберите параметр для изменения:</label>
             <div class="mb-3">
-                <select id="selectColorName" onblur='this.size=1;' onfocus='this.size=getSizeSelect();'
-                        onchange='this.size=1; this.blur(); changeColor(); changeNameColor();' name="select_color" class="form-select" aria-label="">
-                    <option value="-1" selected>Добавить цвет</option>
+                <select id="selectParameterName" onblur='this.size=1;' onfocus='this.size=getSizeSelect();'
+                        onchange='this.size=1; this.blur(); changeParameter(); changeNameParameter();' name="select_parameter" class="form-select" aria-label="">
+                    <option value="-1" selected>Добавить параметр</option>
                     {{$i=0}}
-                    @foreach($dataColor as $item)
+                    @foreach($dataParam as $item)
                         <option value="{{$i++}}">{{$item->getAttributeValue('name')}}</option>
 
                     @endforeach
@@ -33,23 +33,21 @@
 
 
         <div class="mb-3">
-            <label for="InputName" class="form-label">Цвет:</label>
-            <input type="text" name="colorName" placeholder = 'Укажите название' class="form-control" id="InputNameColor" aria-describedby="nameHelp">
-            <div id="nameHelp" class="form-text">Название цвета (будет доступно в фильтре)</div>
+            <label for="InputName" class="form-label">Название:</label>
+            <input type="text" name="parameterName" placeholder = 'Укажите название' class="form-control" id="InputNameParameter" aria-describedby="nameHelp">
+            <div id="nameHelp" class="form-text">Название параметра (будет доступно в фильтре)</div>
         </div>
 
-
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-5">
-                <label class="form-label">Выберите цвет:</label>
+        <div class="mb-3">
+            <label for="InputName" class="form-label">Тип данных:</label>
+            <div class="mb-3">
+                <select id="selectParameterNameType" name="select_type_parameter" class="form-select" aria-label="">
+                    <option value="0" selected>Строка</option>
+                    <option value="1">Число</option>
+                </select>
             </div>
-
-            <div class="col-xs-2 col-sm-1 col-md-1 col-lg-1 col-xs-1">
-                <input name="color" id="ColorChange" type="color">
-            </div>
+           <div id="nameHelp" class="form-text">Тип данных которые будут указаны в этом параметре</div>
         </div>
-
 
         <button type="submit" id="buttonSend" class="btn btn-primary">Добавить</button>
     </form>
@@ -58,42 +56,33 @@
     <script>
 
         function getSizeSelect() {
-            var data = @json($dataColor);
+            var data = @json($dataParam);
             var length = data.length;
             if(length > 4)
                 length = 4;
             return length + 1;
         }
 
-        function changeColor() {
-            var data = @json($dataColor);
-            var dop = document.getElementById("selectColorName").value;
-
-            if (dop >= 0) {
-
-                document.getElementById("ColorChange").value = data[dop].color;
-            } else
-                document.getElementById("ColorChange").value = '#000000';
+        function changeParameter() {
+            var data = @json($dataParam);
+            var dop = document.getElementById("selectParameterName").value;
         }
 
-        function changeNameColor() {
-            var data = @json($dataColor);
-            var dop = document.getElementById("selectColorName").value;
+        function changeNameParameter() {
+            var data = @json($dataParam);
+            var dop = document.getElementById("selectParameterName").value;
 
             if(dop < 0) {
                 document.getElementById("buttonSend").textContent = 'Добавить';
-                document.getElementById("InputNameColor").placeholder = 'Укажите название';
-                document.getElementById("InputNameColor").value = '';
-                document.getElementById("productId").value = '-1';
-
+                document.getElementById("InputNameParameter").placeholder = 'Укажите название';
+                document.getElementById("productId").value = -1;
+                document.getElementById("selectParameterName").value = '-1';
+                document.getElementById("InputNameParameter").value = '';
             } else {
-                document.getElementById("InputNameColor").value = data[dop].name;
+                document.getElementById("InputNameParameter").value = data[dop].name;
                 document.getElementById("buttonSend").textContent = 'Изменить';
                 document.getElementById("productId").value = data[dop].id;
-
-
-
-
+                document.getElementById("selectParameterNameType").value = data[dop].type;
             }
         }
 
